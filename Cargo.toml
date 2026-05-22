@@ -1,0 +1,16 @@
+[package]
+name = "pomotimer"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.102"
+chrono = "0.4.44"
+crossterm = "0.29.0"
+directories = "6.0.0"
+notify-rust = { version = "4.17.0", default-features = false, features = ["d_vendored"] }
+ratatui = "0.30.0"
+rusqlite = { version = "0.39.0", features = ["bundled"] }
+serde = { version = "1.0.228", features = ["derive"] }
+toml = "1.1.2"
+tui-big-text = "0.8.4"
