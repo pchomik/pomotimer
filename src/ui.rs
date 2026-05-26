@@ -5,7 +5,8 @@ use ratatui::{
     text::{Line, Span},
     widgets::{Block, Borders, Paragraph},
 };
-use tui_big_text::{BigText, PixelSize};
+
+use crate::clock;
 
 use crate::app::{ActiveTab, App};
 
@@ -78,13 +79,8 @@ fn render_timer(frame: &mut Frame, area: ratatui::layout::Rect, app: &App) {
         .style(Style::default().fg(Color::Cyan));
     frame.render_widget(phase, chunks[1]);
 
-    let clock = BigText::builder()
-        .pixel_size(PixelSize::Full)
-        .centered()
-        .style(Style::default().fg(Color::Green))
-        .lines(vec![app.clock_text().into()])
-        .build();
-    frame.render_widget(clock, chunks[2]);
+    let clock_widget = clock::render_clock_big(&app.clock_text(), Color::Green);
+    frame.render_widget(clock_widget, chunks[2]);
 
     let hint = Paragraph::new("Focus this terminal window and press a keybinding.")
         .alignment(Alignment::Center)

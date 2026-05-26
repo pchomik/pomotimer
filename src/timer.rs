@@ -89,11 +89,11 @@ impl Timer {
         self.started_at = None;
     }
 
-    pub fn next(&mut self, config: &TimersConfig) {
+    pub fn next(&mut self, config: &TimersConfig, auto_start: bool) {
         if self.phase == Phase::Work {
             self.work_sessions_completed += 1;
         }
-        self.advance_phase(config, false);
+        self.advance_phase(config, auto_start);
     }
 
     pub fn tick(&mut self, elapsed: Duration, config: &TimersConfig) -> Option<CompletedIteration> {
@@ -125,7 +125,11 @@ impl Timer {
     fn advance_phase(&mut self, config: &TimersConfig, auto_start: bool) {
         let long_break_after_sessions = config.long_break_after_sessions.max(1);
         self.phase = match self.phase {
-            Phase::Work if self.work_sessions_completed % long_break_after_sessions == 0 => {
+            Phase::Work
+                if self
+                    .work_sessions_completed
+                    .is_multiple_of(long_break_after_sessions) =>
+            {
                 Phase::LongBreak
             }
             Phase::Work => Phase::ShortBreak,
@@ -165,7 +169,7 @@ mod tests {
         let config = config(4);
         let mut timer = Timer::new(&config);
 
-        timer.next(&config);
+        timer.next(&config, false);
         assert_eq!(timer.phase(), Phase::ShortBreak);
     }
 
@@ -174,13 +178,13 @@ mod tests {
         let config = config(2);
         let mut timer = Timer::new(&config);
 
-        timer.next(&config);
+        timer.next(&config, false);
         assert_eq!(timer.phase(), Phase::ShortBreak);
 
-        timer.next(&config);
+        timer.next(&config, false);
         assert_eq!(timer.phase(), Phase::Work);
 
-        timer.next(&config);
+        timer.next(&config, false);
         assert_eq!(timer.phase(), Phase::LongBreak);
     }
 }

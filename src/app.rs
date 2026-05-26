@@ -28,6 +28,7 @@ pub struct App {
 impl App {
     pub fn new(config: AppConfig, database: Database, notifier: Notifier) -> Self {
         let timer = Timer::new(&config.timers);
+
         Self {
             config,
             timer,
@@ -45,7 +46,9 @@ impl App {
             KeyCode::Char(' ') => self.timer.start_pause(),
             KeyCode::Char('s') => self.timer.stop(&self.config.timers),
             KeyCode::Char('r') => self.timer.reset(&self.config.timers),
-            KeyCode::Char('n') => self.timer.next(&self.config.timers),
+            KeyCode::Char('n') => self
+                .timer
+                .next(&self.config.timers, self.config.timers.auto_start),
             _ => {}
         }
     }

@@ -12,6 +12,7 @@ use crossterm::{
 use ratatui::{Terminal, backend::CrosstermBackend};
 
 mod app;
+mod clock;
 mod config;
 mod db;
 mod notifications;
@@ -44,12 +45,11 @@ fn run(terminal: &mut Tui, app: &mut App) -> Result<()> {
     loop {
         terminal.draw(|frame| ui::render(frame, app))?;
 
-        if event::poll(tick_rate)? {
-            if let Event::Key(key) = event::read()? {
-                if key.kind == KeyEventKind::Press {
-                    app.handle_key(key);
-                }
-            }
+        if event::poll(tick_rate)?
+            && let Event::Key(key) = event::read()?
+            && key.kind == KeyEventKind::Press
+        {
+            app.handle_key(key);
         }
 
         let now = Instant::now();
