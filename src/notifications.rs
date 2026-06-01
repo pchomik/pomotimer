@@ -28,9 +28,11 @@ impl Notifier {
 
         Notification::new()
             .summary("Pomotimer")
+            .appname("Pomotimer")
             .body(body)
             .urgency(Urgency::Critical)
             .timeout(Timeout::Never)
+            .id(12)
             .show()
             .context("failed to send desktop notification")?;
         Ok(())
