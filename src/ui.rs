@@ -20,7 +20,7 @@ pub fn render(frame: &mut Frame, app: &mut App) {
         let max_bars = (inner_width / min_slot).max(1);
         let bar_count = (1..=max_bars)
             .rev()
-            .find(|n| inner_width % n == 0 && inner_width / n >= min_slot)
+            .find(|n| inner_width.is_multiple_of(*n) && inner_width / n >= min_slot)
             .unwrap_or(max_bars) as u32;
         app.set_stats_bar_count(bar_count);
     }
@@ -138,7 +138,7 @@ fn render_statistics(frame: &mut Frame, area: ratatui::layout::Rect, app: &App) 
     let max_bars = (inner_width / min_slot).max(1);
     let bar_count = (1..=max_bars)
         .rev()
-        .find(|n| inner_width % n == 0 && inner_width / n >= min_slot)
+        .find(|n| inner_width.is_multiple_of(*n) && inner_width / n >= min_slot)
         .unwrap_or(max_bars) as u32;
 
     match app.stats_scale() {
