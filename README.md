@@ -10,6 +10,8 @@ A terminal-based Pomodoro timer for **Windows**, built with Rust. Features a min
 - **Persistent history** — Every completed session is stored in a local SQLite database
 - **Configurable** — Timer durations, notification preferences, and auto-start all adjustable via TOML config
 
+<img src="docs/timer.png" width="800">
+
 ## Keybindings
 
 | Key     | Action                                   |
