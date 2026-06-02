@@ -8,20 +8,35 @@ A terminal-based Pomodoro timer for **Windows**, built with Rust. Features a min
 - **Tabbed interface** — Switch between timer view and statistics
 - **Desktop notifications** — Alerts when a phase completes (configurable messages)
 - **Persistent history** — Every completed session is stored in a local SQLite database
+- **Statistics dashboard** — Visual bar charts showing daily and monthly focus time, with pagination to browse past periods
 - **Configurable** — Timer durations, notification preferences, and auto-start all adjustable via TOML config
 
 <img src="docs/timer.png" width="800">
 
 ## Keybindings
 
-| Key     | Action                                   |
-| ------- | ---------------------------------------- |
-| `space` | Start / Pause                            |
-| `s`     | Stop cycle                               |
-| `r`     | Reset current phase                      |
-| `n`     | Skip to next phase                       |
-| `t`     | Toggle between Timer and Statistics tabs |
-| `q`     | Quit                                     |
+### Timer tab
+
+| Key     | Action              |
+| ------- | ------------------- |
+| `space` | Start / Pause       |
+| `s`     | Stop cycle          |
+| `r`     | Reset current phase |
+| `n`     | Skip to next phase  |
+| `t`     | Open Statistics tab |
+| `q`     | Quit                |
+
+### Statistics tab
+
+| Key | Action                                                |
+| --- | ----------------------------------------------------- |
+| `t` | Return to Timer tab                                   |
+| `s` | Toggle between daily (Week) and monthly (Month) scale |
+| `n` | Scroll forward one page (next days / months)          |
+| `p` | Scroll backward one page (previous days / months)     |
+| `r` | Reset view to current week                            |
+| `q` | Quit                                                  |
+
 
 ## Configuration
 
